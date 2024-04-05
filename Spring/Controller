@@ -1,0 +1,36 @@
+package com.example.client.controller;
+
+import com.example.client.model.Client;
+import com.example.client.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/clients")
+public class ClientController {
+
+    @Autowired
+    private ClientService clientService;
+
+    @GetMapping
+    public List<Client> getAllClients() {
+        return clientService.getAllClients();
+    }
+
+    @GetMapping("/{name}")
+    public Client getClientByName(@PathVariable String name) {
+        return clientService.getClientByName(name);
+    }
+
+    @PostMapping
+    public Client addClient(@RequestBody Client client) {
+        return clientService.addClient(client);
+    }
+
+    @DeleteMapping("/{name}")
+    public void deleteClientByName(@PathVariable String name) {
+        clientService.deleteClientByName(name);
+    }
+}
